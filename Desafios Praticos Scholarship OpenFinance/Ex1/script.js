@@ -1,15 +1,15 @@
-function somarElementos(array) {
-    let soma = 0;
+function sumElements(array) {
+    let sum = 0;
 
     for (let i = 0; i < array.length; i++) {
         if (typeof array[i] !== 'number') {
-            return "Valor invalido detectado";
+            return "Invalid value detected";
         }
-        soma += array[i];
+        sum += array[i];
     }
-    return soma;
+    return sum;
 }
 
-console.log(somarElementos([1, 2, 3, 4, 5])); 
-console.log(somarElementos([-1, 10, 20])); 
-console.log(somarElementos([45, 5, "xpto"])); 
+console.log(sumElements([1, 2, 3, 4, 5]));
+console.log(sumElements([-1, 10, 20]));
+console.log(sumElements([45, 5, "xpto"])); 
