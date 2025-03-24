@@ -4,7 +4,7 @@
 
 ```bash
 # Navegue até a pasta do projeto
-cd "Desafios Praticos Scholarship OpenFinance/Criando uma API com o Módulo HTTP no Node.js"
+cd "Desafios Praticos Scholarship OpenFinance/Desafios Node.js"
 
 # Execute o arquivo server.js
 node server.js
@@ -103,8 +103,63 @@ curl -X POST http://127.0.0.1:3000/count \
 }
 ```
 
+### 4. GET /stock-insight
+
+Consulta o preço atual do Bitcoin na API do CoinGecko e fornece uma sugestão de compra.
+
+**Parâmetros de consulta:**
+- `currency` (opcional): Moeda para exibir o preço (valores aceitos: `usd` ou `brl`, padrão: `usd`)
+
+**Lógica de sugestão de compra:**
+- Para BRL:
+  - < R$300.000: "Bom momento para compra!"
+  - Entre R$300.000 e R$450.000: "Preço razoável. Avalie antes de comprar."
+  - > R$450.000: "Bitcoin está caro. Pode ser melhor esperar."
+- Para USD:
+  - < $60.000: "Bom momento para compra!"
+  - Entre $60.000 e $80.000: "Preço razoável. Avalie antes de comprar."
+  - > $80.000: "Bitcoin está caro. Pode ser melhor esperar."
+
+**Exemplo de chamada com cURL (USD - padrão):**
+```bash
+curl -X GET http://127.0.0.1:3000/stock-insight
+```
+
+**Resposta esperada:**
+```json
+{
+  "btc_price": 39500.75,
+  "currency": "usd",
+  "suggestion": "Bom momento para compra!"
+}
+```
+
+**Exemplo de chamada com cURL (BRL):**
+```bash
+curl -X GET "http://127.0.0.1:3000/stock-insight?currency=brl"
+```
+
+**Resposta esperada:**
+```json
+{
+  "btc_price": 195000.50,
+  "currency": "brl",
+  "suggestion": "Bom momento para compra!"
+}
+```
+
+**Exemplo de resposta em caso de erro:**
+```json
+{
+  "error": "Serviço indisponível",
+  "message": "Não foi possível consultar o preço do Bitcoin no momento"
+}
+```
+
 ## Notas adicionais
 
 - O contador é mantido em memória e será reiniciado quando o servidor for reiniciado.
 - O endpoint `/is-prime-number` aceita apenas números inteiros positivos.
-- O endpoint `/count` aceita apenas valores de incremento que sejam números inteiros positivos. 
+- O endpoint `/count` aceita apenas valores de incremento que sejam números inteiros positivos.
+- O endpoint `/stock-insight` requer Node.js 18 ou superior para utilizar o módulo `fetch` nativo.
+- Os dados do Bitcoin são obtidos em tempo real da API pública do CoinGecko. 

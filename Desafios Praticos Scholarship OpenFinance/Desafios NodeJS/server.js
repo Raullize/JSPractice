@@ -50,6 +50,44 @@ function parseRequestBody(request) {
   });
 }
 
+// Função para obter o preço do Bitcoin da API do CoinGecko
+async function fetchBitcoinPrice(currency = 'usd') {
+  try {
+    const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${currency}`);
+    
+    if (!response.ok) {
+      throw new Error('Falha ao obter dados da API do CoinGecko');
+    }
+    
+    const data = await response.json();
+    return data.bitcoin[currency];
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Função para obter sugestão de compra com base no preço e moeda
+function getSuggestion(price, currency) {
+  if (currency === 'brl') {
+    if (price < 300000) {
+      return 'Bom momento para compra!';
+    } else if (price >= 300000 && price <= 450000) {
+      return 'Preço razoável. Avalie antes de comprar.';
+    } else {
+      return 'Bitcoin está caro. Pode ser melhor esperar.';
+    }
+  } else {
+    // Padrão: USD
+    if (price < 60000) {
+      return 'Bom momento para compra!';
+    } else if (price >= 60000 && price <= 80000) {
+      return 'Preço razoável. Avalie antes de comprar.';
+    } else {
+      return 'Bitcoin está caro. Pode ser melhor esperar.';
+    }
+  }
+}
+
 // Criação do servidor
 const server = http.createServer(async (request, response) => {
   // Configura o cabeçalho de resposta para JSON
@@ -88,6 +126,36 @@ const server = http.createServer(async (request, response) => {
       response.statusCode = 200;
       response.end(JSON.stringify({ isPrime: primeResult }));
       return;
+    }
+    
+    // Endpoint GET /stock-insight
+    if (method === 'GET' && path === '/stock-insight') {
+      try {
+        let currency = requestUrl.searchParams.get('currency') || 'usd';
+        
+        // Validar que a moeda é 'usd' ou 'brl'
+        if (currency !== 'usd' && currency !== 'brl') {
+          currency = 'usd'; // valor padrão
+        }
+        
+        const price = await fetchBitcoinPrice(currency);
+        const suggestion = getSuggestion(price, currency);
+        
+        response.statusCode = 200;
+        response.end(JSON.stringify({
+          btc_price: price,
+          currency: currency,
+          suggestion: suggestion
+        }));
+        return;
+      } catch (error) {
+        response.statusCode = 503;
+        response.end(JSON.stringify({ 
+          error: 'Serviço indisponível', 
+          message: 'Não foi possível consultar o preço do Bitcoin no momento' 
+        }));
+        return;
+      }
     }
     
     // Endpoint POST /count
