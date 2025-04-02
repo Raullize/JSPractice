@@ -1,3 +1,5 @@
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=339933&height=120&section=header"/>
+
 # API Usage - Módulo HTTP no Node.js
 
 ## Como iniciar o servidor
@@ -163,3 +165,5 @@ curl -X GET "http://127.0.0.1:3000/stock-insight?currency=brl"
 - O endpoint `/count` aceita apenas valores de incremento que sejam números inteiros positivos.
 - O endpoint `/stock-insight` requer Node.js 18 ou superior para utilizar o módulo `fetch` nativo.
 - Os dados do Bitcoin são obtidos em tempo real da API pública do CoinGecko. 
+
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=339933&height=120&section=footer"/>
