@@ -25,7 +25,7 @@ Esta é uma API RESTful desenvolvida em Node.js **sem o uso de frameworks extern
 1. Clone o repositório:
 ```bash
 git clone <url-do-repositorio>
-cd 'API NodeJS (no frameworks)'
+cd <nome-da-pasta>
 ```
 
 2. Instale as dependências:
@@ -115,25 +115,29 @@ POST /heroes
 
 ## 🧪 Como Testar a API
 
-Você pode testar a API utilizando ferramentas como cURL, Postman ou Insomnia.
+Você pode testar a API utilizando ferramentas como Postman ou Insomnia.
 
 ### Exemplos com cURL
 
 #### Listar todos os heróis:
 ```bash
-curl http://localhost:3000/heroes
+curl -X GET http://localhost:3000/heroes
 ```
 
 #### Buscar herói por ID:
 ```bash
-curl http://localhost:3000/heroes/1
+curl -X GET http://localhost:3000/heroes/1
 ```
 
 #### Criar novo herói:
 ```bash
 curl -X POST http://localhost:3000/heroes \
   -H "Content-Type: application/json" \
-  -d '{"name":"Superman","age":38,"power":"Super força"}'
+  -d '{
+    "name": "Superman",
+    "age": 38,
+    "power": "Super força"
+  }'
 ```
 
 ### 📱 Testando com Postman/Insomnia

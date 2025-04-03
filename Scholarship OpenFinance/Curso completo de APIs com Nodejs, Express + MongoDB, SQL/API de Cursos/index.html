@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API de Cursos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h1, h2 {
+            color: #0066cc;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .endpoint {
+            margin-bottom: 30px;
+            border-left: 4px solid #0066cc;
+            padding-left: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Documentação da API de Cursos</h1>
+    
+    <!-- Visão Geral da API -->
+    <section>
+        <h2>Visão Geral</h2>
+        <p>Esta API permite gerenciar uma lista de cursos através de operações CRUD (Create, Read, Update, Delete).
+           Implementada com Express.js, ela utiliza middlewares para validação de dados e manipula um array em memória.</p>
+    </section>
+
+    <!-- Middlewares -->
+    <section>
+        <h2>Middlewares</h2>
+        
+        <!-- Middleware Global -->
+        <div class="endpoint">
+            <h3>Middleware Global</h3>
+            <p>Registra no console todas as URLs chamadas na API.</p>
+            <pre><code>server.use((req, res, next) => {
+  console.log(`URL CHAMADA: ${req.url}`);
+  return next();
+});</code></pre>
+        </div>
+        
+        <!-- Middleware checkCurso -->
+        <div class="endpoint">
+            <h3>checkCurso</h3>
+            <p>Valida se o nome do curso foi informado no corpo da requisição.</p>
+            <pre><code>function checkCurso(req, res, next){
+  if(!req.body.name){
+    return res.status(400).json({ error: "Nome do curso é obrigatorio"});
+  }
+  return next();
+}</code></pre>
+        </div>
+        
+        <!-- Middleware checkIndexCurso -->
+        <div class="endpoint">
+            <h3>checkIndexCurso</h3>
+            <p>Verifica se o índice do curso requisitado existe na lista.</p>
+            <pre><code>function checkIndexCurso(req, res, next){
+  const curso = cursos[req.params.index];
+  if(!curso){
+    return res.status(400).json({ error: "O curso não existe"});
+  }
+  req.curso = curso;
+  return next();
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- Endpoints da API -->
+    <section>
+        <h2>Endpoints</h2>
+        
+        <!-- GET /cursos -->
+        <div class="endpoint">
+            <h3>GET /cursos</h3>
+            <p>Lista todos os cursos disponíveis.</p>
+            <pre><code>server.get('/cursos', (req, res) => {
+  return res.json(cursos);
+});</code></pre>
+        </div>
+        
+        <!-- GET /cursos/:index -->
+        <div class="endpoint">
+            <h3>GET /cursos/:index</h3>
+            <p>Retorna um curso específico pelo seu índice na lista.</p>
+            <pre><code>server.get('/cursos/:index', checkIndexCurso, (req, res) => {
+   return res.json(req.curso);
+});</code></pre>
+        </div>
+        
+        <!-- POST /cursos -->
+        <div class="endpoint">
+            <h3>POST /cursos</h3>
+            <p>Adiciona um novo curso à lista.</p>
+            <pre><code>server.post('/cursos', checkCurso, (req, res) => {
+  const { name } = req.body;
+  cursos.push(name);
+  return res.json(cursos);
+});</code></pre>
+        </div>
+        
+        <!-- PUT /cursos/:index -->
+        <div class="endpoint">
+            <h3>PUT /cursos/:index</h3>
+            <p>Atualiza um curso existente pelo seu índice.</p>
+            <pre><code>server.put('/cursos/:index', checkCurso, checkIndexCurso, (req, res) => {
+  const { index } = req.params;
+  const { name } = req.body;
+  cursos[index] = name;
+  return res.json(cursos);
+});</code></pre>
+        </div>
+        
+        <!-- DELETE /cursos/:index -->
+        <div class="endpoint">
+            <h3>DELETE /cursos/:index</h3>
+            <p>Remove um curso da lista pelo seu índice.</p>
+            <pre><code>server.delete('/cursos/:index', checkIndexCurso, (req, res) => {
+  const { index } = req.params;
+  cursos.splice(index, 1);
+  return res.json({ message: "Curso deletado com sucesso!"});
+});</code></pre>
+        </div>
+    </section>
+
+    <!-- Notas Importantes -->
+    <section>
+        <h2>Notas Importantes</h2>
+        <ul>
+            <li>A API utiliza a porta 3000 por padrão</li>
+            <li>Os dados são armazenados em memória (array 'cursos')</li>
+            <li>Todas as requisições que enviam dados devem usar formato JSON</li>
+            <li>O campo 'name' é obrigatório para criar ou atualizar cursos</li>
+        </ul>
+    </section>
+</body>
+</html> 
