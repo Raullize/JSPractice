@@ -178,9 +178,45 @@ curl -X DELETE http://localhost:3000/cursos/0
 ├── index.js             # Arquivo principal com a configuração do servidor e rotas
 ├── package.json         # Configuração do projeto e dependências
 ├── package-lock.json    # Versões específicas das dependências
-├── .gitignore           # Arquivos e pastas ignorados pelo git
-├── index.html           # Documentação da API em formato HTML
-└── README.md            # Este arquivo
+└── .gitignore           # Arquivos e pastas ignorados pelo git
+```
+
+## 📚 Middlewares
+
+### Middleware Global
+Registra no console todas as URLs chamadas na API.
+
+```javascript
+server.use((req, res, next) => {
+  console.log(`URL CHAMADA: ${req.url}`);
+  return next();
+});
+```
+
+### checkCurso
+Valida se o nome do curso foi informado no corpo da requisição.
+
+```javascript
+function checkCurso(req, res, next){
+  if(!req.body.name){
+    return res.status(400).json({ error: "Nome do curso é obrigatorio"});
+  }
+  return next();
+}
+```
+
+### checkIndexCurso
+Verifica se o índice do curso requisitado existe na lista.
+
+```javascript
+function checkIndexCurso(req, res, next){
+  const curso = cursos[req.params.index];
+  if(!curso){
+    return res.status(400).json({ error: "O curso não existe"});
+  }
+  req.curso = curso;
+  return next();
+}
 ```
 
 ## 📊 Arquitetura
@@ -200,3 +236,10 @@ O projeto segue uma arquitetura simples com Express.js:
    - DELETE /cursos/:index: Remove um curso da lista
 
 3. **Persistência**: Os dados são armazenados em memória em um array JavaScript
+
+## 📝 Notas Importantes
+
+- A API utiliza a porta 3000 por padrão
+- Os dados são armazenados em memória (array 'cursos')
+- Todas as requisições que enviam dados devem usar formato JSON
+- O campo 'name' é obrigatório para criar ou atualizar cursos
