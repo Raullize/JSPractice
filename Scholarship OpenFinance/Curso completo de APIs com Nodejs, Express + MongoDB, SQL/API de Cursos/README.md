@@ -170,11 +170,120 @@ curl -X DELETE http://localhost:3000/cursos/0
 4. Para POST e PUT, no corpo da requisição selecione JSON e adicione o corpo conforme exemplo acima
 5. Envie a requisição e verifique a resposta
 
+## 📡 Testando a API
+
+### Postman/Insomnia
+
+Para testar a API, você pode usar o Postman ou Insomnia. Ambas são ferramentas gráficas que facilitam o teste de APIs. Algumas considerações importantes:
+
+1. A API roda por padrão na porta 3000
+2. URL base: `http://localhost:3000`
+
+#### Exemplos de Requisições
+
+##### Listar todos os cursos
+1. Método: `GET`
+2. URL: `http://localhost:3000/cursos`
+3. Headers: Não são necessários
+
+##### Buscar um curso específico
+1. Método: `GET`
+2. URL: `http://localhost:3000/cursos/0` (onde 0 é o índice do curso)
+3. Headers: Não são necessários
+
+##### Criar um novo curso
+1. Método: `POST`
+2. URL: `http://localhost:3000/cursos`
+3. Headers:
+   ```
+   Content-Type: application/json
+   ```
+4. Body (raw JSON):
+   ```json
+   {
+     "nome": "JavaScript Avançado"
+   }
+   ```
+
+##### Atualizar um curso
+1. Método: `PUT`
+2. URL: `http://localhost:3000/cursos/0` (onde 0 é o índice do curso)
+3. Headers:
+   ```
+   Content-Type: application/json
+   ```
+4. Body (raw JSON):
+   ```json
+   {
+     "nome": "JavaScript Moderno"
+   }
+   ```
+
+##### Deletar um curso
+1. Método: `DELETE`
+2. URL: `http://localhost:3000/cursos/0` (onde 0 é o índice do curso)
+3. Headers: Não são necessários
+
+#### Dicas para Postman/Insomnia
+- Salve suas requisições em coleções para reutilização
+- Use variáveis de ambiente para URLs base
+- Configure autenticação quando necessário
+- Exporte suas coleções para compartilhar com a equipe
+
+### Exemplos com cURL
+
+O cURL é uma ferramenta de linha de comando que permite fazer requisições HTTP diretamente do terminal. É útil para:
+- Testes rápidos da API
+- Automação de testes
+- Integração com scripts
+- Verificação de endpoints em ambientes sem interface gráfica
+
+Para usar os exemplos abaixo, você precisa ter o cURL instalado no seu sistema. No Windows, você pode usar o PowerShell ou o Git Bash.
+
+#### Listar todos os cursos:
+```bash
+curl http://localhost:3000/cursos
+```
+
+#### Buscar um curso específico:
+```bash
+curl http://localhost:3000/cursos/0
+```
+
+#### Criar um novo curso:
+```bash
+curl -X POST http://localhost:3000/cursos \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nome": "JavaScript Avançado"
+  }'
+```
+
+#### Atualizar um curso:
+```bash
+curl -X PUT http://localhost:3000/cursos/0 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nome": "JavaScript Moderno"
+  }'
+```
+
+#### Deletar um curso:
+```bash
+curl -X DELETE http://localhost:3000/cursos/0
+```
+
+Onde:
+- `-X`: Define o método HTTP (GET, POST, PUT, DELETE)
+- `-H`: Adiciona um cabeçalho HTTP (neste caso, Content-Type)
+- `-d`: Define o corpo da requisição (dados)
+
 ## 🏗️ Estrutura do Projeto
 
 ```
 .
 ├── node_modules/        # Dependências do projeto
+├── index.html           # Arquivo adicional de documentação do projeto
 ├── index.js             # Arquivo principal com a configuração do servidor e rotas
 ├── package.json         # Configuração do projeto e dependências
 ├── package-lock.json    # Versões específicas das dependências
