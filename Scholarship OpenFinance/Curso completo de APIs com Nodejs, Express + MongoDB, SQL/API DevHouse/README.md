@@ -68,7 +68,7 @@ src/
 A aplicação utiliza o MongoDB Atlas (plano gratuito). A string de conexão está configurada no arquivo `src/app.js`:
 
 ```javascript
-mongoose.connect('mongodb+srv://devHouse:devHouse@devhouse.swgvp7h.mongodb.net/devHouse?retryWrites=true&w=majority&appName=devHouse');
+mongoose.connect('mongodb+srv://<seu_usuario>:<sua_senha>@<seu_cluster>.mongodb.net/devHouse?retryWrites=true&w=majority&appName=devHouse');
 ```
 
 ## 🚀 Como Executar
