@@ -5,10 +5,10 @@
   "scripts": {
     "dev": "nodemon src/server.js"
   },
-  "keywords": [],
+  "keywords": ["api", "devhouse", "imoveis", "reservas", "nodejs", "express", "mongodb", "mongoose", "mvc"],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "API RESTful para gerenciamento de imóveis e reservas, desenvolvida com Node.js, Express e MongoDB utilizando arquitetura MVC e upload de imagens",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0",

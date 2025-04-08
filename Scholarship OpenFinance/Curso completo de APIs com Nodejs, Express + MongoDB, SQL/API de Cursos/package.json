@@ -1,15 +1,15 @@
 {
   "name": "app",
   "version": "1.0.0",
-  "description": "",
+  "description": "API RESTful para gerenciamento de cursos e disciplinas educacionais, desenvolvida com Node.js e Express",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": ["api", "cursos", "educacao", "nodejs", "express", "rest"],
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
     "express": "^4.18.2"
   },
