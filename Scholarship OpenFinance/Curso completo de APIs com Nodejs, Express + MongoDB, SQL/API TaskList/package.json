@@ -1,0 +1,36 @@
+{
+  "name": "api-tasklist",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec sucrase-node src/server.js",
+    "format": "prettier --write \"src/**/*.js\"",
+    "lint": "eslint src --ext .js --fix"
+  },
+  "keywords": ["api", "tasklist", "nodejs", "express", "sequelize", "postgres", "rest"],
+  "author": "",
+  "license": "ISC",
+  "description": "API RESTful para gerenciamento de tarefas com autenticação de usuários, construída com Node.js, Express, Sequelize e PostgreSQL",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.1",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.6",
+    "globals": "^16.0.0",
+    "nodemon": "^3.1.9",
+    "prettier": "^3.5.3",
+    "sequelize-cli": "^6.6.2",
+    "sucrase": "^3.35.0"
+  }
+}
