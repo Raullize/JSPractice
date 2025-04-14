@@ -1,4 +1,10 @@
 export default {
-  secret: 'b4nk4cc0unt54p1s3cur1tyk3y2024',
-  expiresIn: '7d',
+  secret:
+    process.env.JWT_SECRET ||
+    (() => {
+      throw new Error(
+        'JWT_SECRET não definido no arquivo .env. Esta variável é necessária para segurança da aplicação.'
+      );
+    })(),
+  expiresIn: process.env.JWT_EXPIRATION || '7d',
 };

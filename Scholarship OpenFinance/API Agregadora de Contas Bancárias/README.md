@@ -12,6 +12,7 @@ Uma API REST que permite aos usuários gerenciar suas contas bancárias em difer
 - Bcrypt para criptografia de senhas
 - Yup para validação de dados
 - ESLint e Prettier para padronização de código
+- Dotenv para variáveis de ambiente
 
 ## Pré-requisitos
 
@@ -30,16 +31,36 @@ git clone <url-do-repositorio>
 cd <nome-da-pasta>
 ```
 
-### 2. Configuração do Banco de Dados
+### 2. Configuração do Ambiente
 
-Certifique-se de que o PostgreSQL esteja instalado e em execução. A configuração padrão espera:
+O projeto utiliza variáveis de ambiente para configuração. Você deve criar um arquivo `.env` na raiz do projeto, seguindo o modelo do arquivo `.env.example`:
 
-- Host: localhost
-- Usuário: postgres
-- Senha: admin
-- Nome do banco: bankaccounts
+```bash
+# Copie o arquivo .env.example
+cp .env.example .env
 
-Você pode alterar estas configurações no arquivo `src/config/database.js`.
+# Edite o arquivo .env com suas configurações
+```
+
+Exemplo de configuração no arquivo `.env`:
+
+```
+# Configurações do Banco de Dados
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=api_contas_bancarias
+DB_USER=postgres
+DB_PASS=sua_senha
+DB_DIALECT=postgres
+
+# Configurações da API
+PORT=3000
+NODE_ENV=development
+
+# JWT Secret
+JWT_SECRET=sua_chave_secreta
+JWT_EXPIRATION=7d
+```
 
 ### 3. Instalação Automática (Recomendada)
 
@@ -51,8 +72,7 @@ node setup.js
 
 Este script realiza as seguintes tarefas:
 - Instala todas as dependências
-- Cria o banco de dados
-- Gera as migrações necessárias
+- Cria o banco de dados usando as configurações do arquivo .env
 - Executa as migrações para criar as tabelas
 
 ### 4. Instalação Manual (Alternativa)
