@@ -98,6 +98,33 @@ npm run dev
 
 O servidor estará disponível em http://localhost:3000
 
+## Estrutura da API
+
+A API é organizada em módulos principais que representam os diferentes recursos disponíveis:
+
+| Categoria     | Rota                                | Método | Requer JWT | Descrição                                        |
+|---------------|-------------------------------------|--------|------------|--------------------------------------------------|
+| **Auth**      |                                     |        |            |                                                  |
+|               | `/sessions`                         | POST   | Não        | Autentica usuário e retorna token JWT            |
+|               | `/users`                            | POST   | Não        | Cria um novo usuário                             |
+| **Users**     |                                     |        |            |                                                  |
+|               | `/users`                            | GET    | Sim        | Lista todos os usuários                          |
+|               | `/users/:id`                        | GET    | Sim        | Retorna dados de um usuário específico           |
+|               | `/users`                            | PUT    | Sim        | Atualiza dados do usuário autenticado            |
+| **BankAccounts** |                                  |        |            |                                                  |
+|               | `/accounts`                         | POST   | Sim        | Cria uma nova conta bancária                     |
+|               | `/accounts`                         | GET    | Sim        | Lista todas as contas do usuário                 |
+|               | `/accounts/:id`                     | GET    | Sim        | Retorna dados de uma conta específica            |
+|               | `/accounts/:id`                     | PUT    | Sim        | Atualiza dados de uma conta                      |
+|               | `/accounts/:id`                     | DELETE | Sim        | Desativa uma conta (soft delete)                 |
+| **Transactions** |                                  |        |            |                                                  |
+|               | `/accounts/:account_id/transactions`| POST   | Sim        | Cria uma nova transação                          |
+|               | `/accounts/:account_id/transactions`| GET    | Sim        | Lista transações de uma conta específica         |
+|               | `/transactions/:id`                 | GET    | Sim        | Retorna dados de uma transação específica        |
+| **Financial** |                                     |        |            |                                                  |
+|               | `/balance`                          | GET    | Sim        | Retorna balanço financeiro do usuário            |
+|               | `/balance?month=M&year=YYYY`        | GET    | Sim        | Retorna balanço financeiro filtrado por período  |
+
 ## Testando a API
 
 Você pode testar a API usando ferramentas como [Postman](https://www.postman.com/), [Insomnia](https://insomnia.rest/) ou [curl](https://curl.se/).
@@ -138,6 +165,33 @@ Authorization: Bearer seu_token_jwt_aqui
 
 ### Exemplos de Requisições
 
+#### Listar Usuários
+```
+GET /users
+Authorization: Bearer seu_token_jwt_aqui
+```
+
+#### Visualizar Usuário Específico
+```
+GET /users/1
+Authorization: Bearer seu_token_jwt_aqui
+```
+
+#### Atualizar Dados do Usuário
+```
+PUT /users
+Content-Type: application/json
+Authorization: Bearer seu_token_jwt_aqui
+
+{
+  "name": "Nome Atualizado",
+  "email": "email_atualizado@teste.com",
+  "oldPassword": "123456",
+  "password": "654321",
+  "confirmPassword": "654321"
+}
+```
+
 #### Adicionar uma Conta Bancária
 ```
 POST /accounts
@@ -159,6 +213,33 @@ GET /accounts
 Authorization: Bearer seu_token_jwt_aqui
 ```
 
+#### Visualizar Conta Específica
+```
+GET /accounts/1
+Authorization: Bearer seu_token_jwt_aqui
+```
+
+#### Atualizar Conta Bancária
+```
+PUT /accounts/1
+Content-Type: application/json
+Authorization: Bearer seu_token_jwt_aqui
+
+{
+  "bank_name": "Banco do Brasil",
+  "agency": "4321",
+  "account_number": "7654321-0",
+  "account_type": "savings",
+  "balance": 2000.00
+}
+```
+
+#### Desativar Conta Bancária
+```
+DELETE /accounts/1
+Authorization: Bearer seu_token_jwt_aqui
+```
+
 #### Adicionar uma Transação
 ```
 POST /accounts/1/transactions
@@ -172,6 +253,18 @@ Authorization: Bearer seu_token_jwt_aqui
   "category": "Salário",
   "transaction_date": "2024-06-24T10:00:00Z"
 }
+```
+
+#### Listar Transações de uma Conta
+```
+GET /accounts/1/transactions
+Authorization: Bearer seu_token_jwt_aqui
+```
+
+#### Visualizar Transação Específica
+```
+GET /transactions/1
+Authorization: Bearer seu_token_jwt_aqui
 ```
 
 #### Ver Balanço Financeiro
