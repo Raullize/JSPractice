@@ -33,6 +33,7 @@ routes.delete('/accounts/:id', BankAccountController.delete);
 routes.post('/accounts/:account_id/transactions', TransactionController.store);
 routes.get('/accounts/:account_id/transactions', TransactionController.index);
 routes.get('/transactions/:id', TransactionController.show);
+routes.get('/transactions', TransactionController.getAllTransactions);
 
 // Rotas de balanço financeiro
 routes.get('/balance', BalanceController.index);

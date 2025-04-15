@@ -51,4 +51,4 @@ module.exports = {
     }),
 
   down: (queryInterface) => queryInterface.dropTable('bank_accounts'),
-}; 
+};

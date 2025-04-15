@@ -10,9 +10,9 @@ class TransactionController {
 
     // Verificando se a conta pertence ao usuário
     const account = await BankAccount.findOne({
-      where: { 
+      where: {
         id: account_id,
-        user_id: req.userId 
+        user_id: req.userId,
       },
     });
 
@@ -63,6 +63,118 @@ class TransactionController {
     });
   }
 
+  async getAllTransactions(req, res) {
+    const { page = 1, limit = 20, start_date, end_date, type, category, bank_name } = req.query;
+
+    try {
+      // Primeiro, vamos verificar se há contas associadas ao usuário
+      const userAccounts = await BankAccount.findAll({
+        where: { user_id: req.userId },
+        attributes: ['id', 'bank_name'],
+      });
+
+      // Se o usuário não tem contas, retornamos lista vazia
+      if (userAccounts.length === 0) {
+        return res.json({
+          transactions: [],
+          total: 0,
+          page: parseInt(page, 10),
+          pages: 0,
+          message: 'Usuário não possui contas bancárias',
+        });
+      }
+
+      // Aplicar filtro por banco, se especificado
+      let accountsToUse = userAccounts;
+      if (bank_name) {
+        accountsToUse = userAccounts.filter((account) =>
+          account.bank_name.toLowerCase().includes(bank_name.toLowerCase())
+        );
+
+        // Se nenhuma conta corresponde ao filtro de banco
+        if (accountsToUse.length === 0) {
+          return res.json({
+            transactions: [],
+            total: 0,
+            page: parseInt(page, 10),
+            pages: 0,
+            message: `Nenhuma conta encontrada para o banco ${bank_name}`,
+          });
+        }
+      }
+
+      // Obtém os IDs das contas para filtrar transações
+      const accountIds = accountsToUse.map((account) => account.id);
+
+      // Log para debug
+      console.log('User ID:', req.userId);
+      console.log('Account IDs:', accountIds);
+
+      // Montando os filtros para as transações
+      const where = {
+        account_id: {
+          [Op.in]: accountIds,
+        },
+      };
+
+      if (start_date && end_date) {
+        where.transaction_date = {
+          [Op.between]: [new Date(start_date), new Date(end_date)],
+        };
+      } else if (start_date) {
+        where.transaction_date = {
+          [Op.gte]: new Date(start_date),
+        };
+      } else if (end_date) {
+        where.transaction_date = {
+          [Op.lte]: new Date(end_date),
+        };
+      }
+
+      if (type) {
+        where.type = type;
+      }
+
+      if (category) {
+        where.category = category;
+      }
+
+      // Log para debug
+      console.log('Transaction where clause:', JSON.stringify(where));
+
+      // Buscar as transações
+      const transactions = await Transaction.findAll({
+        where,
+        limit: parseInt(limit, 10),
+        offset: (page - 1) * limit,
+        order: [['transaction_date', 'DESC']],
+        attributes: ['id', 'description', 'amount', 'type', 'transaction_date', 'category'],
+        include: [
+          {
+            model: BankAccount,
+            as: 'account',
+            attributes: ['id', 'bank_name', 'agency', 'account_number'],
+          },
+        ],
+      });
+
+      const count = await Transaction.count({ where });
+
+      // Log para debug
+      console.log('Transactions found:', transactions.length);
+
+      return res.json({
+        transactions,
+        total: count,
+        page: parseInt(page, 10),
+        pages: Math.ceil(count / limit),
+      });
+    } catch (error) {
+      console.error('Erro ao buscar transações:', error);
+      return res.status(500).json({ error: 'Erro interno do servidor', details: error.message });
+    }
+  }
+
   async show(req, res) {
     const transaction = await Transaction.findByPk(req.params.id, {
       attributes: ['id', 'description', 'amount', 'type', 'transaction_date', 'category'],
@@ -77,7 +189,9 @@ class TransactionController {
     });
 
     if (!transaction) {
-      return res.status(404).json({ error: 'Transação não encontrada ou não pertence ao usuário.' });
+      return res
+        .status(404)
+        .json({ error: 'Transação não encontrada ou não pertence ao usuário.' });
     }
 
     return res.json(transaction);
@@ -100,9 +214,9 @@ class TransactionController {
 
     // Verificando se a conta existe e pertence ao usuário
     const account = await BankAccount.findOne({
-      where: { 
+      where: {
         id: account_id,
-        user_id: req.userId 
+        user_id: req.userId,
       },
     });
 
@@ -130,4 +244,4 @@ class TransactionController {
   }
 }
 
-export default new TransactionController(); 
+export default new TransactionController();

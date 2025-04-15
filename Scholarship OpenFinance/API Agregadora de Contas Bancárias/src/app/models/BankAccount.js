@@ -25,4 +25,4 @@ class BankAccount extends Model {
   }
 }
 
-export default BankAccount; 
+export default BankAccount;

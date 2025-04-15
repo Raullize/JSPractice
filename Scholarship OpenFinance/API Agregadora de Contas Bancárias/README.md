@@ -121,9 +121,12 @@ A API é organizada em módulos principais que representam os diferentes recurso
 |               | `/accounts/:account_id/transactions`| POST   | Sim        | Cria uma nova transação                          |
 |               | `/accounts/:account_id/transactions`| GET    | Sim        | Lista transações de uma conta específica         |
 |               | `/transactions/:id`                 | GET    | Sim        | Retorna dados de uma transação específica        |
+|               | `/transactions`                     | GET    | Sim        | Lista todas as transações do usuário (extrato)   |
+|               | `/transactions?bank_name=NomeBanco` | GET    | Sim        | Filtra transações por instituição bancária       |
 | **Financial** |                                     |        |            |                                                  |
 |               | `/balance`                          | GET    | Sim        | Retorna balanço financeiro do usuário            |
 |               | `/balance?month=M&year=YYYY`        | GET    | Sim        | Retorna balanço financeiro filtrado por período  |
+|               | `/balance?bank_name=NomeBanco`      | GET    | Sim        | Retorna balanço de uma instituição específica    |
 
 ## Testando a API
 
@@ -276,6 +279,24 @@ Authorization: Bearer seu_token_jwt_aqui
 #### Ver Balanço Financeiro com Filtro por Mês
 ```
 GET /balance?month=6&year=2024
+Authorization: Bearer seu_token_jwt_aqui
+```
+
+#### Ver Balanço Financeiro de uma Instituição Específica
+```
+GET /balance?bank_name=Banco do Brasil
+Authorization: Bearer seu_token_jwt_aqui
+```
+
+#### Ver Todas as Transações (Extrato Completo)
+```
+GET /transactions
+Authorization: Bearer seu_token_jwt_aqui
+```
+
+#### Ver Transações de uma Instituição Específica
+```
+GET /transactions?bank_name=Itaú
 Authorization: Bearer seu_token_jwt_aqui
 ```
 

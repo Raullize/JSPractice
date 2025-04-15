@@ -6,7 +6,15 @@ class BankAccountController {
   async index(req, res) {
     const accounts = await BankAccount.findAll({
       where: { user_id: req.userId },
-      attributes: ['id', 'bank_name', 'agency', 'account_number', 'account_type', 'balance', 'is_active'],
+      attributes: [
+        'id',
+        'bank_name',
+        'agency',
+        'account_number',
+        'account_type',
+        'balance',
+        'is_active',
+      ],
     });
 
     return res.json(accounts);
@@ -14,11 +22,19 @@ class BankAccountController {
 
   async show(req, res) {
     const account = await BankAccount.findOne({
-      where: { 
+      where: {
         id: req.params.id,
-        user_id: req.userId 
+        user_id: req.userId,
       },
-      attributes: ['id', 'bank_name', 'agency', 'account_number', 'account_type', 'balance', 'is_active'],
+      attributes: [
+        'id',
+        'bank_name',
+        'agency',
+        'account_number',
+        'account_type',
+        'balance',
+        'is_active',
+      ],
       include: [
         {
           model: Transaction,
@@ -87,9 +103,9 @@ class BankAccountController {
     }
 
     const account = await BankAccount.findOne({
-      where: { 
+      where: {
         id: req.params.id,
-        user_id: req.userId 
+        user_id: req.userId,
       },
     });
 
@@ -104,9 +120,9 @@ class BankAccountController {
 
   async delete(req, res) {
     const account = await BankAccount.findOne({
-      where: { 
+      where: {
         id: req.params.id,
-        user_id: req.userId 
+        user_id: req.userId,
       },
     });
 
@@ -121,4 +137,4 @@ class BankAccountController {
   }
 }
 
-export default new BankAccountController(); 
+export default new BankAccountController();

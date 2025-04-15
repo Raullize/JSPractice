@@ -4,18 +4,38 @@ import Transaction from '../models/Transaction';
 
 class BalanceController {
   async index(req, res) {
-    const { month, year } = req.query;
+    const { month, year, bank_name } = req.query;
 
-    // Busca todas as contas ativas do usuário
+    // Filtros para contas bancárias
+    const whereAccount = {
+      user_id: req.userId,
+      is_active: true,
+    };
+
+    // Adiciona filtro por banco, se especificado
+    if (bank_name) {
+      whereAccount.bank_name = { [Op.iLike]: `%${bank_name}%` };
+    }
+
+    // Busca as contas do usuário com os filtros aplicados
     const accounts = await BankAccount.findAll({
-      where: { 
-        user_id: req.userId,
-        is_active: true
-      },
+      where: whereAccount,
       attributes: ['id', 'bank_name', 'agency', 'account_number', 'account_type', 'balance'],
     });
 
-    // Cálculo do saldo total em todas as contas
+    // Se não houver contas com os filtros, retorna resultado vazio
+    if (accounts.length === 0) {
+      return res.json({
+        total_balance: 0,
+        accounts_count: 0,
+        accounts: [],
+        message: bank_name
+          ? `Nenhuma conta encontrada para o banco ${bank_name}`
+          : 'Nenhuma conta bancária ativa',
+      });
+    }
+
+    // Cálculo do saldo total nas contas filtradas
     const totalBalance = accounts.reduce((sum, account) => sum + parseFloat(account.balance), 0);
 
     // Se não houver filtro de mês/ano, retorna apenas o consolidado das contas
@@ -23,7 +43,7 @@ class BalanceController {
       return res.json({
         total_balance: totalBalance,
         accounts_count: accounts.length,
-        accounts: accounts.map(account => ({
+        accounts: accounts.map((account) => ({
           id: account.id,
           bank_name: account.bank_name,
           account_type: account.account_type,
@@ -40,7 +60,7 @@ class BalanceController {
     const transactions = await Transaction.findAll({
       where: {
         account_id: {
-          [Op.in]: accounts.map(account => account.id),
+          [Op.in]: accounts.map((account) => account.id),
         },
         transaction_date: {
           [Op.between]: [startDate, endDate],
@@ -51,18 +71,18 @@ class BalanceController {
 
     // Cálculo das receitas e despesas
     const income = transactions
-      .filter(transaction => transaction.type === 'deposit')
+      .filter((transaction) => transaction.type === 'deposit')
       .reduce((sum, transaction) => sum + parseFloat(transaction.amount), 0);
 
     const expenses = transactions
-      .filter(transaction => transaction.type === 'withdrawal' || transaction.type === 'transfer')
+      .filter((transaction) => transaction.type === 'withdrawal' || transaction.type === 'transfer')
       .reduce((sum, transaction) => sum + parseFloat(transaction.amount), 0);
 
     // Categorização das despesas
     const categorizedExpenses = transactions
-      .filter(transaction => transaction.type === 'withdrawal' || transaction.type === 'transfer')
+      .filter((transaction) => transaction.type === 'withdrawal' || transaction.type === 'transfer')
       .reduce((categories, transaction) => {
-        const category = transaction.category;
+        const { category } = transaction;
         if (!categories[category]) {
           categories[category] = 0;
         }
@@ -88,7 +108,7 @@ class BalanceController {
         percentage: Math.round((amount / expenses) * 100),
       })),
       accounts_count: accounts.length,
-      accounts: accounts.map(account => ({
+      accounts: accounts.map((account) => ({
         id: account.id,
         bank_name: account.bank_name,
         account_type: account.account_type,
@@ -98,4 +118,4 @@ class BalanceController {
   }
 }
 
-export default new BalanceController(); 
+export default new BalanceController();

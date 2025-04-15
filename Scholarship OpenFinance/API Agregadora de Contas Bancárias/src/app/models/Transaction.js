@@ -23,4 +23,4 @@ class Transaction extends Model {
   }
 }
 
-export default Transaction; 
+export default Transaction;
