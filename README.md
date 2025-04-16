@@ -44,6 +44,16 @@ A pasta **Scholarship OpenFinance** contém todos os materiais relacionados ao p
 - **🚀 Projetos**: Implementações completas de projetos desenvolvidos no programa
 - **🌐 APIs**: Exemplos de APIs RESTful criadas com Node.js e Express
 
+### 📑 Sumário de Projetos do Scholarship OpenFinance
+
+| Projeto | Descrição |
+| ------- | --------- |
+| [API Agregadora de Contas Bancárias](./Scholarship%20OpenFinance/API%20Agregadora%20de%20Contas%20Bancárias/) | Implementação de uma API que agrega informações de contas bancárias, seguindo padrões do Open Finance |
+| [Curso completo de APIs com Nodejs, Express + MongoDB, SQL](./Scholarship%20OpenFinance/Curso%20completo%20de%20APIs%20com%20Nodejs%2C%20Express%20%2B%20MongoDB%2C%20SQL/) | Material e projetos do curso sobre desenvolvimento de APIs completas com Node.js |
+| [API NodeJS (no frameworks)](./Scholarship%20OpenFinance/API%20NodeJS%20(no%20frameworks)/) | Implementação de API usando apenas Node.js nativo, sem frameworks adicionais |
+| [Desafio NodeJS](./Scholarship%20OpenFinance/Desafio%20NodeJS/) | Resolução de desafio proposto focado em Node.js |
+| [Desafios de Programação em JavaScript](./Scholarship%20OpenFinance/Desafios%20de%20Programação%20em%20JavaScript/) | Coleção de desafios de programação resolvidos em JavaScript |
+
 Estes materiais documentam minha jornada de aprendizado e evolução durante o programa, focando no desenvolvimento de habilidades com JavaScript, Node.js e tecnologias relacionadas ao Open Finance.
 
 ## 🚀 Como Testar os Projetos
