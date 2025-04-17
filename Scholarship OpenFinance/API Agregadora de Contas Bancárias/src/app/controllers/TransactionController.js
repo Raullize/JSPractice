@@ -8,7 +8,6 @@ class TransactionController {
     const { account_id } = req.params;
     const { page = 1, limit = 20, start_date, end_date, type, category } = req.query;
 
-    // Verificando se a conta pertence ao usuário
     const account = await BankAccount.findOne({
       where: {
         id: account_id,
@@ -20,7 +19,6 @@ class TransactionController {
       return res.status(404).json({ error: 'Conta bancária não encontrada.' });
     }
 
-    // Montando os filtros
     const where = { account_id };
 
     if (start_date && end_date) {
@@ -67,13 +65,11 @@ class TransactionController {
     const { page = 1, limit = 20, start_date, end_date, type, category, bank_name } = req.query;
 
     try {
-      // Primeiro, vamos verificar se há contas associadas ao usuário
       const userAccounts = await BankAccount.findAll({
         where: { user_id: req.userId },
         attributes: ['id', 'bank_name'],
       });
 
-      // Se o usuário não tem contas, retornamos lista vazia
       if (userAccounts.length === 0) {
         return res.json({
           transactions: [],
@@ -84,14 +80,12 @@ class TransactionController {
         });
       }
 
-      // Aplicar filtro por banco, se especificado
       let accountsToUse = userAccounts;
       if (bank_name) {
         accountsToUse = userAccounts.filter((account) =>
           account.bank_name.toLowerCase().includes(bank_name.toLowerCase())
         );
 
-        // Se nenhuma conta corresponde ao filtro de banco
         if (accountsToUse.length === 0) {
           return res.json({
             transactions: [],
@@ -103,14 +97,8 @@ class TransactionController {
         }
       }
 
-      // Obtém os IDs das contas para filtrar transações
       const accountIds = accountsToUse.map((account) => account.id);
 
-      // Log para debug
-      console.log('User ID:', req.userId);
-      console.log('Account IDs:', accountIds);
-
-      // Montando os filtros para as transações
       const where = {
         account_id: {
           [Op.in]: accountIds,
@@ -139,10 +127,6 @@ class TransactionController {
         where.category = category;
       }
 
-      // Log para debug
-      console.log('Transaction where clause:', JSON.stringify(where));
-
-      // Buscar as transações
       const transactions = await Transaction.findAll({
         where,
         limit: parseInt(limit, 10),
@@ -159,9 +143,6 @@ class TransactionController {
       });
 
       const count = await Transaction.count({ where });
-
-      // Log para debug
-      console.log('Transactions found:', transactions.length);
 
       return res.json({
         transactions,
@@ -212,7 +193,6 @@ class TransactionController {
 
     const { account_id } = req.params;
 
-    // Verificando se a conta existe e pertence ao usuário
     const account = await BankAccount.findOne({
       where: {
         id: account_id,
@@ -224,13 +204,11 @@ class TransactionController {
       return res.status(404).json({ error: 'Conta bancária não encontrada.' });
     }
 
-    // Criando a transação
     const transaction = await Transaction.create({
       ...req.body,
       account_id,
     });
 
-    // Atualizando o saldo da conta
     let newBalance = parseFloat(account.balance);
     if (req.body.type === 'deposit') {
       newBalance += parseFloat(req.body.amount);

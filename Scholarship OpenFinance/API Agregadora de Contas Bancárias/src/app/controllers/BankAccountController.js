@@ -130,7 +130,6 @@ class BankAccountController {
       return res.status(404).json({ error: 'Conta bancária não encontrada.' });
     }
 
-    // Em vez de excluir completamente, mudamos o status para inativo
     await account.update({ is_active: false });
 
     return res.json({ message: 'Conta bancária desativada com sucesso.' });

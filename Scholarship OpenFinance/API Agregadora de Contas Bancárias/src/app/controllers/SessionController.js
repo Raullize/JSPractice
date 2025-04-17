@@ -18,7 +18,6 @@ class SessionController {
 
     const { email, password } = req.body;
 
-    // Verificando se esse email existe
     const user = await User.findOne({
       where: { email },
       include: [
@@ -35,7 +34,6 @@ class SessionController {
       return res.status(401).json({ error: 'Usuário não existe.' });
     }
 
-    // Verificando se a senha é válida, em relação ao hash salvo no banco de dados.
     if (!(await user.checkPassword(password))) {
       return res.status(401).json({ error: 'Senha incorreta.' });
     }
