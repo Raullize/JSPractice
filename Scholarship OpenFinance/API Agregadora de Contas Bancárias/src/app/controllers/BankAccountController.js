@@ -17,6 +17,13 @@ class BankAccountController {
       ],
     });
 
+    if (accounts.length === 0) {
+      return res.json({
+        accounts: [],
+        message: 'Você ainda não possui contas bancárias cadastradas.',
+      });
+    }
+
     return res.json(accounts);
   }
 
@@ -48,6 +55,14 @@ class BankAccountController {
 
     if (!account) {
       return res.status(404).json({ error: 'Conta bancária não encontrada.' });
+    }
+
+    if (!account.transactions || account.transactions.length === 0) {
+      return res.json({
+        ...account.get(),
+        transactions: [],
+        message: 'Esta conta bancária ainda não possui transações.',
+      });
     }
 
     return res.json(account);

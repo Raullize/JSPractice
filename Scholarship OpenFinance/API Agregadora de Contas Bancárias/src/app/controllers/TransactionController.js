@@ -53,6 +53,16 @@ class TransactionController {
 
     const count = await Transaction.count({ where });
 
+    if (count === 0) {
+      return res.json({
+        transactions: [],
+        total: 0,
+        page: parseInt(page, 10),
+        pages: 0,
+        message: 'Nenhuma transação encontrada para esta conta bancária.',
+      });
+    }
+
     return res.json({
       transactions,
       total: count,
@@ -143,6 +153,34 @@ class TransactionController {
       });
 
       const count = await Transaction.count({ where });
+
+      if (count === 0) {
+        let message = 'Nenhuma transação encontrada';
+
+        if (type && category) {
+          message += ` do tipo "${type}" na categoria "${category}"`;
+        } else if (type) {
+          message += ` do tipo "${type}"`;
+        } else if (category) {
+          message += ` na categoria "${category}"`;
+        }
+
+        if (start_date && end_date) {
+          message += ` no período de ${start_date} a ${end_date}`;
+        } else if (start_date) {
+          message += ` a partir de ${start_date}`;
+        } else if (end_date) {
+          message += ` até ${end_date}`;
+        }
+
+        return res.json({
+          transactions: [],
+          total: 0,
+          page: parseInt(page, 10),
+          pages: 0,
+          message,
+        });
+      }
 
       return res.json({
         transactions,

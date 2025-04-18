@@ -43,6 +43,7 @@ class BalanceController {
           account_type: account.account_type,
           balance: account.balance,
         })),
+        message: 'Saldo atual de todas as contas ativas',
       });
     }
 
@@ -60,6 +61,30 @@ class BalanceController {
       },
       attributes: ['id', 'description', 'amount', 'type', 'category', 'transaction_date'],
     });
+
+    if (transactions.length === 0) {
+      return res.json({
+        period: {
+          month,
+          year,
+        },
+        total_balance: totalBalance,
+        monthly_summary: {
+          income: 0,
+          expenses: 0,
+          balance: 0,
+        },
+        categorized_expenses: [],
+        accounts_count: accounts.length,
+        accounts: accounts.map((account) => ({
+          id: account.id,
+          bank_name: account.bank_name,
+          account_type: account.account_type,
+          balance: account.balance,
+        })),
+        message: `Nenhuma transação encontrada no período de ${month}/${year}`,
+      });
+    }
 
     const income = transactions
       .filter((transaction) => transaction.type === 'deposit')

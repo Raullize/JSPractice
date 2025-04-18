@@ -8,6 +8,13 @@ class UserController {
       attributes: ['id', 'name', 'email', 'cpf'],
     });
 
+    if (users.length === 0) {
+      return res.json({
+        users: [],
+        message: 'Nenhum usuário cadastrado no sistema.',
+      });
+    }
+
     return res.json(users);
   }
 
@@ -25,6 +32,14 @@ class UserController {
 
     if (!user) {
       return res.status(404).json({ error: 'Usuário não encontrado.' });
+    }
+
+    if (!user.accounts || user.accounts.length === 0) {
+      return res.json({
+        ...user.get(),
+        accounts: [],
+        message: 'Este usuário não possui contas bancárias cadastradas.',
+      });
     }
 
     return res.json(user);
