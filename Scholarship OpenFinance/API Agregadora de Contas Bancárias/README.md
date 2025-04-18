@@ -358,3 +358,83 @@ npm run lint:fix
 - Saldo total consolidado
 - Análise de receitas e despesas por período
 - Categorização de gastos
+
+## Paginação e Filtros
+
+### Paginação de Resultados
+Para facilitar o consumo de grandes conjuntos de dados, a API implementa um sistema de paginação. Por padrão, as listagens de recursos (como transações) são paginadas e retornam 20 itens por página.
+
+**Parâmetros de paginação:**
+- `page`: Número da página (padrão: 1)
+- `limit`: Quantidade de itens por página (padrão: 20)
+
+**Exemplo de uso:**
+```
+GET /transactions?page=2&limit=10
+```
+
+**Estrutura da resposta paginada:**
+```json
+{
+  "transactions": [...],  // Array de registros
+  "total": 45,            // Total de registros encontrados
+  "page": 2,              // Página atual
+  "pages": 5              // Total de páginas disponíveis
+}
+```
+
+Se a consulta não retornar registros, a API fornecerá uma mensagem informativa:
+```json
+{
+  "transactions": [],
+  "total": 0,
+  "page": 1,
+  "pages": 0,
+  "message": "Nenhuma transação encontrada para esta conta bancária."
+}
+```
+
+### Filtros Disponíveis
+
+#### Filtros para Transações
+
+Os endpoints `/transactions` e `/accounts/:account_id/transactions` aceitam os seguintes filtros:
+
+- **Filtro por período**:
+  - `start_date`: Data inicial (formato ISO: YYYY-MM-DD)
+  - `end_date`: Data final (formato ISO: YYYY-MM-DD)
+  
+- **Filtro por tipo de transação**:
+  - `type`: Tipo de transação (valores: "deposit", "withdrawal", "transfer")
+  
+- **Filtro por categoria**:
+  - `category`: Categoria da transação
+
+- **Filtro por banco** (apenas no endpoint `/transactions`):
+  - `bank_name`: Nome da instituição bancária
+
+**Exemplos de uso:**
+```
+GET /transactions?start_date=2024-01-01&end_date=2024-01-31&type=deposit
+GET /transactions?category=Alimentação
+GET /accounts/1/transactions?type=withdrawal&page=2
+```
+
+#### Filtros para Balanço Financeiro
+
+O endpoint `/balance` aceita os seguintes filtros:
+
+- **Filtro por período**:
+  - `month`: Mês (1-12)
+  - `year`: Ano (ex: 2024)
+
+- **Filtro por instituição bancária**:
+  - `bank_name`: Nome do banco
+
+**Exemplos de uso:**
+```
+GET /balance?month=3&year=2024
+GET /balance?bank_name=Banco do Brasil
+```
+
+Quando os filtros são aplicados, a API retorna dados específicos que correspondem aos critérios fornecidos e mensagens apropriadas quando nenhum resultado é encontrado.
