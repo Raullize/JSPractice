@@ -1,28 +1,28 @@
-# API Agregadora de Contas Bancárias
+# 🏦 API Agregadora de Contas Bancárias
 
-Uma API REST que permite aos usuários gerenciar suas contas bancárias em diferentes instituições financeiras, visualizar saldos consolidados e histórico de transações.
+Uma API REST que permite aos usuários gerenciar suas contas bancárias em diferentes instituições financeiras, visualizar saldos consolidados e histórico de transações. 🚀
 
-## Tecnologias Utilizadas
+## 🛠️ Tecnologias Utilizadas
 
-- Node.js
-- Express
-- PostgreSQL
-- Sequelize ORM
-- JWT para autenticação
-- Bcrypt para criptografia de senhas
-- Yup para validação de dados
-- ESLint e Prettier para padronização de código
-- Dotenv para variáveis de ambiente
+- Node.js 🟢
+- Express 🚏
+- PostgreSQL 🐘
+- Sequelize ORM 📂
+- JWT para autenticação 🔑
+- Bcrypt para criptografia de senhas 🔒
+- Yup para validação de dados ✅
+- ESLint e Prettier para padronização de código ✨
+- Dotenv para variáveis de ambiente 🌐
 
-## Pré-requisitos
+## 📋 Pré-requisitos
 
 Para executar esta API, você precisará:
 
-- [Node.js](https://nodejs.org/) (v12 ou superior)
-- [PostgreSQL](https://www.postgresql.org/) (v10 ou superior)
-- [npm](https://www.npmjs.com/)
+- [Node.js](https://nodejs.org/) (v12 ou superior) 🟢
+- [PostgreSQL](https://www.postgresql.org/) (v10 ou superior) 🐘
+- [npm](https://www.npmjs.com/) 📦
 
-## Configuração e Instalação
+## ⚙️ Configuração e Instalação
 
 ### 1. Clone o repositório
 
@@ -44,22 +44,26 @@ cp .env.example .env
 
 Exemplo de configuração no arquivo `.env`:
 
-```
+```bash
 # Configurações do Banco de Dados
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=api_contas_bancarias
-DB_USER=postgres
-DB_PASS=sua_senha
+DB_USER=SEU_USUARIO_DO_POSTGRES
+DB_PASS=SUA_SENHA
 DB_DIALECT=postgres
 
-# Configurações da API
+# Configurações da API 
 PORT=3000
 NODE_ENV=development
 
-# JWT Secret
-JWT_SECRET=sua_chave_secreta
+# JWT Secret - Serve para assinar e verificar tokens de autenticação (como uma senha mestra da API).
+# IMPORTANTE: Substitua por uma string longa e aleatória para segurança!
+JWT_SECRET=SUBSTITUA_POR_STRING_ALEATORIA_LONGA
 JWT_EXPIRATION=7d
+
+# Segurança - Define quantas vezes o bcrypt vai rodar para criar o hash
+BCRYPT_ROUNDS=10
 ```
 
 ### 3. Instalação Automática (Recomendada)
@@ -71,9 +75,9 @@ node setup.js
 ```
 
 Este script realiza as seguintes tarefas:
-- Instala todas as dependências
-- Cria o banco de dados usando as configurações do arquivo .env
-- Executa as migrações para criar as tabelas
+- Instala todas as dependências 📦
+- Cria o banco de dados usando as configurações do arquivo .env 🐘
+- Executa as migrações para criar as tabelas 📂
 
 ### 4. Instalação Manual (Alternativa)
 
@@ -90,15 +94,15 @@ npx sequelize-cli db:create
 npx sequelize-cli db:migrate
 ```
 
-## Iniciando o Servidor
+## 🚀 Iniciando o Servidor
 
 ```bash
 npm run dev
 ```
 
-O servidor estará disponível em http://localhost:3000
+O servidor estará disponível em [http://localhost:3000](http://localhost:3000) 🌐
 
-## Estrutura da API
+## 📚 Estrutura da API
 
 A API é organizada em módulos principais que representam os diferentes recursos disponíveis:
 
@@ -128,11 +132,11 @@ A API é organizada em módulos principais que representam os diferentes recurso
 |               | `/balance?month=M&year=YYYY`        | GET    | Sim        | Retorna balanço financeiro filtrado por período  |
 |               | `/balance?bank_name=NomeBanco`      | GET    | Sim        | Retorna balanço de uma instituição específica    |
 
-## Testando a API
+## 🧪 Testando a API
 
-Você pode testar a API usando ferramentas como [Postman](https://www.postman.com/), [Insomnia](https://insomnia.rest/) ou [curl](https://curl.se/).
+Você pode testar a API usando ferramentas como [Postman](https://www.postman.com/) 🛠️, [Insomnia](https://insomnia.rest/) 🛌 ou [curl](https://curl.se/) 🌀.
 
-### Autenticação
+### 🔑 Autenticação
 
 1. **Criar um usuário**:
    ```
@@ -157,16 +161,16 @@ Você pode testar a API usando ferramentas como [Postman](https://www.postman.co
      "password": "123456"
    }
    ```
-   Guarde o token JWT retornado para usar nas próximas requisições.
+   Guarde o token JWT retornado para usar nas próximas requisições. 🔒
 
-### Usando as Rotas Protegidas
+### 🔒 Usando as Rotas Protegidas
 
 Para todas as rotas protegidas, adicione o header de autorização:
 ```
 Authorization: Bearer seu_token_jwt_aqui
 ```
 
-### Exemplos de Requisições
+### 📂 Exemplos de Requisições
 
 #### Listar Usuários
 ```
@@ -300,7 +304,7 @@ GET /transactions?bank_name=Itaú
 Authorization: Bearer seu_token_jwt_aqui
 ```
 
-## Estrutura do Banco de Dados
+## 🗄️ Estrutura do Banco de Dados
 
 O sistema usa três tabelas principais:
 
@@ -313,7 +317,7 @@ Armazena informações das contas bancárias associadas aos usuários.
 ### Transactions
 Registra todas as transações financeiras associadas às contas bancárias.
 
-## Desenvolvimento
+## 🛠️ Desenvolvimento
 
 ### Gerando Novas Migrações
 
@@ -335,7 +339,7 @@ npm run lint
 npm run lint:fix
 ```
 
-## Funcionalidades
+## 🌟 Funcionalidades
 
 ### Usuários
 - Cadastro de novos usuários
@@ -359,7 +363,7 @@ npm run lint:fix
 - Análise de receitas e despesas por período
 - Categorização de gastos
 
-## Paginação e Filtros
+## 📊 Paginação e Filtros
 
 ### Paginação de Resultados
 Para facilitar o consumo de grandes conjuntos de dados, a API implementa um sistema de paginação. Por padrão, as listagens de recursos (como transações) são paginadas e retornam 20 itens por página.
