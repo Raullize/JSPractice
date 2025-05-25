@@ -48,7 +48,7 @@ A pasta **Scholarship OpenFinance** contém todos os materiais relacionados ao p
 
 | Projeto | Descrição |
 | ------- | --------- |
-| [API Agregadora de Contas Bancárias](./Scholarship%20OpenFinance/API%20Agregadora%20de%20Contas%20Bancárias/) | Implementação de uma API que agrega informações de contas bancárias, seguindo padrões do Open Finance |
+| [API Agregadora de Contas Bancárias](https://github.com/Raullize/MiniBancoCentral) | Implementação de uma API que agrega informações de contas bancárias, seguindo padrões do Open Finance |
 | [Curso completo de APIs com Nodejs, Express + MongoDB, SQL](./Scholarship%20OpenFinance/Curso%20completo%20de%20APIs%20com%20Nodejs%2C%20Express%20%2B%20MongoDB%2C%20SQL/) | Material e projetos do curso sobre desenvolvimento de APIs completas com Node.js |
 | [API NodeJS (no frameworks)](./Scholarship%20OpenFinance/API%20NodeJS%20(no%20frameworks)/) | Implementação de API usando apenas Node.js nativo, sem frameworks adicionais |
 | [Desafio NodeJS](./Scholarship%20OpenFinance/Desafio%20NodeJS/) | Resolução de desafio proposto focado em Node.js |
