@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Simple Calculator - JavaScript</title>
+	<link href="style.css" rel="stylesheet">
+</head>
+<body>
+	<div class="wrapper">
+		<h2>Simple Calculator</h2>
+		
+		<div class="input-group">
+			<input id="num-one" name="num-one" type="text" placeholder="First number">
+			<input id="num-two" name="num-two" type="text" placeholder="Second number">
+		</div>
+		
+		<div class="radio-group">
+			<label class="radio-item">
+				<input checked id="box1" name="sign-area" type="radio" value="add">
+				<b>+</b>
+			</label>
+			<label class="radio-item">
+				<input id="box2" name="sign-area" type="radio" value="subtract">
+				<b>-</b>
+			</label>
+			<label class="radio-item">
+				<input id="box3" name="sign-area" type="radio" value="multiply">
+				<b>×</b>
+			</label>
+			<label class="radio-item">
+				<input id="box4" name="sign-area" type="radio" value="divide">
+				<b>÷</b>
+			</label>
+		</div>
+		
+		<button onclick="outcome()" type="button">Calculate</button>
+		<div id="resultArea"></div>
+	</div>
+	<script src="index.js"></script>
+</body>
+</html>
