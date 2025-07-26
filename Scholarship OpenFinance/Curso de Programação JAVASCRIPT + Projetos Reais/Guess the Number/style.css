@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --primary: #667eea;
+    --secondary: #764ba2;
+    --success: #48bb78;
+    --warning: #ed8936;
+    --danger: #f56565;
+    --background: #ffffff;
+    --surface: #f7fafc;
+    --text-primary: #2d3748;
+    --text-secondary: #4a5568;
+    --border: #e2e8f0;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+body {
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+main {
+    text-align: center;
+    background: var(--background);
+    border: none;
+    min-height: 500px;
+    border-radius: 25px;
+    padding: 3rem;
+    color: var(--text-primary);
+    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(10px);
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+  
+h2 {
+    font-size: 2.5rem;
+    margin: 1rem 0 2rem 0;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.button-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* game screen */
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+input[type="number"] {
+    border: 2px solid var(--border);
+    background: var(--surface);
+    margin: 1.5rem 0;
+    padding: 1rem;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    font-size: 1.5rem;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    background: var(--background);
+}
+
+.stats {
+    text-align: left;
+    background: var(--surface);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+    box-shadow: var(--shadow);
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+}
+
+.info:last-child {
+    margin-bottom: 0;
+}
+
+.info p {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.info span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: rgba(102, 126, 234, 0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 8px;
+}
+
+#newGameButton {
+    background: linear-gradient(135deg, var(--success), #38a169);
+    margin-top: 2rem;
+}
+
+#newGameButton:hover {
+    box-shadow: 0 15px 30px rgba(72, 187, 120, 0.4);
+}
+
+@media (max-width: 600px) {
+    main {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+    
+    input[type="number"] {
+        font-size: 1.2rem;
+        max-width: 250px;
+    }
+    
+    .stats {
+        padding: 1rem;
+    }
+}
