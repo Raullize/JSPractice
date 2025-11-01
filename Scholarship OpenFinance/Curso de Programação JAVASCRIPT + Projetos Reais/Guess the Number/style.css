@@ -1,19 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-:root {
-    --primary: #667eea;
-    --secondary: #764ba2;
-    --success: #48bb78;
-    --warning: #ed8936;
-    --danger: #f56565;
-    --background: #ffffff;
-    --surface: #f7fafc;
-    --text-primary: #2d3748;
-    --text-secondary: #4a5568;
-    --border: #e2e8f0;
-    --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 * {
     margin: 0;
@@ -30,7 +15,7 @@ body {
     width: 100vw;
     min-height: 100vh;
     margin: 0;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    background: #f5f5f5;
     font-family: 'Poppins', sans-serif;
     display: flex;
     align-items: center;
@@ -40,44 +25,27 @@ body {
 
 main {
     text-align: center;
-    background: var(--background);
+    background: white;
     border: none;
     min-height: 500px;
-    border-radius: 25px;
+    border-radius: 10px;
     padding: 3rem;
-    color: var(--text-primary);
-    box-shadow: var(--shadow-lg);
-    backdrop-filter: blur(10px);
+    color: #333;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     max-width: 500px;
     width: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-main::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
 }
   
 h2 {
     font-size: 2.5rem;
     margin: 1rem 0 2rem 0;
-    font-weight: 700;
-    color: var(--text-primary);
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-weight: 600;
+    color: #333;
 }
 
 p {
     font-size: 1.2rem;
-    color: var(--text-secondary);
+    color: #666;
     margin-bottom: 1rem;
 }
 
@@ -90,26 +58,17 @@ p {
 button {
     border: none;
     cursor: pointer;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: #007bff;
     color: white;
     padding: 1rem 2rem;
-    border-radius: 12px;
+    border-radius: 5px;
     font-size: 1rem;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
-}
-
-button:active {
-    transform: translateY(0);
+    background: #0056b3;
 }
 
 /* game screen */
@@ -117,39 +76,36 @@ button:active {
 h3 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    color: var(--text-primary);
+    color: #333;
     font-weight: 600;
 }
 
 input[type="number"] {
-    border: 2px solid var(--border);
-    background: var(--surface);
+    border: 2px solid #ddd;
+    background: white;
     margin: 1.5rem 0;
     padding: 1rem;
     width: 100%;
     max-width: 300px;
     text-align: center;
     font-size: 1.5rem;
-    border-radius: 12px;
+    border-radius: 5px;
     font-family: 'Poppins', sans-serif;
-    transition: all 0.3s ease;
-    color: var(--text-primary);
+    color: #333;
 }
 
 input[type="number"]:focus {
     outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    background: var(--background);
+    border-color: #007bff;
 }
 
 .stats {
     text-align: left;
-    background: var(--surface);
+    background: #f8f9fa;
     padding: 1.5rem;
-    border-radius: 15px;
+    border-radius: 5px;
     margin: 2rem 0;
-    box-shadow: var(--shadow);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .info {
@@ -166,26 +122,26 @@ input[type="number"]:focus {
 
 .info p {
     font-weight: 600;
-    color: var(--text-primary);
+    color: #333;
     margin: 0;
 }
 
 .info span {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--primary);
-    background: rgba(102, 126, 234, 0.1);
+    color: #007bff;
+    background: #e3f2fd;
     padding: 0.3rem 0.8rem;
-    border-radius: 8px;
+    border-radius: 3px;
 }
 
 #newGameButton {
-    background: linear-gradient(135deg, var(--success), #38a169);
+    background: #28a745;
     margin-top: 2rem;
 }
 
 #newGameButton:hover {
-    box-shadow: 0 15px 30px rgba(72, 187, 120, 0.4);
+    background: #1e7e34;
 }
 
 @media (max-width: 600px) {

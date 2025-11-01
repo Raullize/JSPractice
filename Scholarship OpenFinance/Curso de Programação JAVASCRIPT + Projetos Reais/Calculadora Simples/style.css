@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 * {
 	margin: 0;
@@ -7,34 +7,31 @@
 }
 
 body {
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background: #f5f5f5;
 	font-family: 'Poppins', sans-serif;
 	min-height: 100vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	padding: 20px;
 }
 
 .wrapper {
 	width: 420px;
-	background: rgba(255, 255, 255, 0.95);
+	background: white;
 	padding: 40px;
-	border-radius: 20px;
-	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-	backdrop-filter: blur(10px);
-	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 10px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 	text-align: center;
 	color: #333;
 }
 
 .wrapper h2 {
-	text-transform: uppercase;
 	font-family: 'Poppins', sans-serif;
-	font-weight: 700;
+	font-weight: 600;
 	margin-bottom: 30px;
-	color: #4a5568;
+	color: #333;
 	font-size: 24px;
-	letter-spacing: 1px;
 }
 
 input[type="text"] {
@@ -42,19 +39,15 @@ input[type="text"] {
 	width: 140px;
 	margin: 0 10px 20px 0;
 	padding: 0 15px;
-	border: 2px solid #e2e8f0;
-	border-radius: 10px;
+	border: 2px solid #ddd;
+	border-radius: 5px;
 	font-size: 18px;
 	font-family: 'Poppins', sans-serif;
-	transition: all 0.3s ease;
-	background: #f7fafc;
 }
 
 input[type="text"]:focus {
 	outline: none;
-	border-color: #667eea;
-	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-	background: #fff;
+	border-color: #007bff;
 }
 
 .radio-group {
@@ -71,73 +64,50 @@ input[type="text"]:focus {
 	gap: 8px;
 	cursor: pointer;
 	padding: 10px 15px;
-	border-radius: 10px;
-	transition: all 0.3s ease;
-	background: #f7fafc;
-	border: 2px solid transparent;
-}
-
-.radio-item:hover {
-	background: #edf2f7;
-	transform: translateY(-2px);
+	border-radius: 5px;
+	background: #f8f9fa;
 }
 
 .radio-item input[type="radio"] {
 	width: 18px;
 	height: 18px;
-	accent-color: #667eea;
-}
-
-.radio-item input[type="radio"]:checked + b {
-	color: #667eea;
 }
 
 .radio-item b {
 	font-size: 20px;
 	font-weight: 600;
-	color: #4a5568;
-	transition: color 0.3s ease;
+	color: #333;
 }
 
 button {
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background: #007bff;
 	border: none;
-	color: #fff;
+	color: white;
 	padding: 15px 35px;
 	font-size: 16px;
-	text-transform: uppercase;
 	font-family: 'Poppins', sans-serif;
 	font-weight: 600;
-	letter-spacing: 1px;
-	border-radius: 25px;
+	border-radius: 5px;
 	cursor: pointer;
-	transition: all 0.3s ease;
 	margin: 20px 0;
-	box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 button:hover {
-	transform: translateY(-3px);
-	box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-}
-
-button:active {
-	transform: translateY(-1px);
+	background: #0056b3;
 }
 
 #resultArea {
 	margin-top: 25px;
 	padding: 20px;
-	background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+	background: #28a745;
 	color: white;
-	border-radius: 15px;
+	border-radius: 5px;
 	font-size: 24px;
 	font-weight: 600;
 	min-height: 60px;
-	display: flex;
+	display: none;
 	align-items: center;
 	justify-content: center;
-	box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
 }
 
 @media (max-width: 480px) {
